@@ -56,7 +56,7 @@ class Tenancy
         $this->_connect_tenant($db_config);
     }
 
-    private function _connect_main($db_config)
+    protected function _connect_main($db_config)
     {
         $this->connection = mysqli_connect($db_config['hostname'], $db_config['username'], $db_config['password']);
         if (! $this->connection) {
@@ -73,7 +73,7 @@ class Tenancy
     /**
      * Handles the selection of Tenancy Database.
      */
-    private function _connect_tenant($db_config)
+    protected function _connect_tenant($db_config)
     {
         if (isset($db_config['tenancy_hostname']) && isset($db_config['tenancy_username'])) {
             $this->tenancy_connection = mysqli_connect($db_config['tenancy_hostname'], $db_config['tenancy_username'], $db_config['tenancy_password']);
@@ -93,7 +93,7 @@ class Tenancy
     /**
      * Close connections.
      */
-    private function _close_connections()
+    protected function _close_connections()
     {
         mysqli_close($this->database);
         mysqli_close($this->tenancy_connection);
@@ -174,7 +174,7 @@ class Tenancy
     /**
      * Error handling.
      */
-    private function _throwError($connection)
+    protected function _throwError($connection)
     {
         throw new Exception('An error happened '.mysqli_error($connection));
     }
@@ -183,7 +183,7 @@ class Tenancy
      * If not already set, this will auto-generate tenancy name.
      * @return string
      */
-    private function _shuffle_name()
+    protected function _shuffle_name()
     {
         $shuffle = substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(self::STRING_SHUFFLE / strlen($x)))), 1, self::STRING_SHUFFLE);
 
@@ -194,7 +194,7 @@ class Tenancy
      * Prepares query of our pre defined configuration queries.
      * @return string
      */
-    private function _prepare_query($type, $parameters = [])
+    protected function _prepare_query($type, $parameters = [])
     {
         if ($type === 'CREATE') {
             if ($parameters['table'] == '' || $parameters['database_name'] == '') {
