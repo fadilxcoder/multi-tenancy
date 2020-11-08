@@ -65,7 +65,7 @@ $tenancy = new Tenancy(
  */
 
  /**
-$name = $tenancy->generate(NULL, []. true);
+$name = $tenancy->generate(NULL, [], true);
 $name = $tenancy->generate(NULL, ['tbl_1', 'tbl_3'], true);
 $name = $tenancy->generate('my_tenancy_db', ['tbl_1'], false);
 */
